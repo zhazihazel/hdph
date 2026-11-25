@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SoundWave — Магазин наушников</title>
+
+<style>
+:root {
+    --bg: #0b0e17;
+    --panel: #151824;
+    --purple: #8257ff;
+    --purple2: #a78bfa;
+    --muted: #aeb2c2;
+    --line: #252a39;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+button, input, select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* HEADER */
+
+.header {
+    min-height: 80px;
+    padding: 15px 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    background: #090b12;
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--purple2);
+}
+
+.logo span {
+    color: white;
+}
+
+nav {
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    color: #b8bdca;
+    text-decoration: none;
+    transition: .2s;
+}
+
+nav a:hover {
+    color: var(--purple2);
+}
+
+.cart-button,
+.hero-button {
+    background: var(--purple);
+    color: white;
+    border: 0;
+    padding: 13px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* HERO */
+
+.hero {
+    padding: 75px 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    background: radial-gradient(
+        circle at 80% 50%,
+        #392568 0%,
+        #151827 42%,
+        #0b0e17 78%
+    );
+}
+
+.hero-content {
+    max-width: 570px;
+}
+
+.hero small {
+    color: var(--purple2);
+    font-weight: bold;
+    letter-spacing: 3px;
+}
+
+.hero h1 {
+    font-size: clamp(36px, 5vw, 62px);
+    line-height: 1.15;
+    margin: 20px 0;
+}
+
+.hero h1 span {
+    color: var(--purple2);
+}
+
+.hero p {
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.hero-image {
+    width: 40%;
+    max-width: 460px;
+    height: 340px;
+    object-fit: contain;
+    background: white;
+    border-radius: 22px;
+    padding: 12px;
+}
+
+/* CATALOG */
+
+.container {
+    padding: 70px 8%;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.section-heading h2 {
+    font-size: 32px;
+}
+
+.section-heading p {
+    color: #9298aa;
+    margin-top: 10px;
+}
+
+.controls {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.controls input,
+.controls select {
+    background: var(--panel);
+    border: 1px solid #303444;
+    color: white;
+    padding: 14px;
+    border-radius: 10px;
+    outline: none;
+}
+
+.controls input {
+    flex: 1;
+    min-width: 0;
+}
+
+.controls select {
+    width: 220px;
+}
+
+.controls input:focus,
+.controls select:focus {
+    border-color: var(--purple);
+}
+
+/* CATEGORIES */
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 35px;
+}
+
+.category-button {
+    background: var(--panel);
+    color: #b8bdca;
+    border: 1px solid #303444;
+    padding: 12px 22px;
+    border-radius: 30px;
+    transition: .25s;
+}
+
+.category-button.active,
+.category-button:hover {
+    background: var(--purple);
+    color: white;
+    border-color: var(--purple);
+}
+
+/* PRODUCTS */
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 25px;
+}
+
+.product-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: .3s;
+}
+
+.product-card:hover {
+    transform: translateY(-7px);
+    border-color: var(--purple);
+    box-shadow: 0 15px 35px #8257ff18;
+}
+
+.product-image {
+    height: 225px;
+    background: white;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 15px;
+    transition: .4s;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.07);
+}
+
+.product-tag {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: var(--purple);
+    padding: 6px 11px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.product-info {
+    padding: 19px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.product-category {
+    color: var(--purple2);
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.product-info h3 {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.product-rating {
+    color: #fbbf24;
+    font-size: 13px;
+}
+
+.product-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: auto;
+    padding-top: 20px;
+}
+
+.product-bottom strong {
+    font-size: 17px;
+}
+
+.add-button {
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 10px;
+    background: var(--purple);
+    color: white;
+    font-size: 25px;
+    flex-shrink: 0;
+    transition: .25s;
+}
+
+.add-button:hover {
+    background: #7040df;
+    transform: scale(1.08);
+}
+
+.empty {
+    color: #aaa;
+    padding: 30px 0;
+    text-align: center;
+    grid-column: 1 / -1;
+}
+
+/* ADVANTAGES */
+
+.advantages {
+    padding: 60px 8%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    background: #111521;
+    text-align: center;
+}
+
+.advantages span {
+    font-size: 35px;
+}
+
+.advantages h3 {
+    margin: 15px 0 10px;
+}
+
+.advantages p {
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+/* FOOTER */
+
+footer {
+    padding: 35px 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: #090b12;
+    border-top: 1px solid var(--line);
+}
+
+footer p {
+    color: #85899b;
+    font-size: 13px;
+}
+
+/* CART */
+
+.cart-overlay {
+    position: fixed;
+    inset: 0;
+    background: #0009;
+    z-index: 20;
+    display: none;
+}
+
+.cart-overlay.open {
+    display: block;
+}
+
+.cart {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: min(430px, 100%);
+    height: 100%;
+    background: var(--panel);
+    padding: 25px;
+    overflow-y: auto;
+    border-left: 1px solid #303444;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.close-cart {
+    background: none;
+    border: 0;
+    color: white;
+    font-size: 30px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 14px 0;
+    border-bottom: 1px solid #303444;
+}
+
+.cart-item img {
+    width: 62px;
+    height: 62px;
+    object-fit: contain;
+    background: white;
+    border-radius: 9px;
+}
+
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-info h4 {
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+
+.cart-item-info p {
+    color: var(--purple2);
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.qty {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 7px;
+}
+
+.qty button {
+    width: 24px;
+    height: 24px;
+    border: 0;
+    border-radius: 6px;
+    background: #303444;
+    color: white;
+}
+
+.remove-item {
+    background: none;
+    border: 0;
+    color: #ff7777;
+    font-size: 21px;
+}
+
+.cart-total {
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+}
+
+.checkout {
+    width: 100%;
+    padding: 15px;
+    background: var(--purple);
+    border: 0;
+    color: white;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1000px) {
+    .products {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .hero-image {
+        width: 42%;
+    }
+}
+
+@media (max-width: 700px) {
+    .header {
+        padding: 15px 5%;
+        flex-wrap: wrap;
+    }
+
+    .header nav {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        gap: 17px;
+    }
+
+    .hero {
+        padding: 55px 6%;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hero-image {
+        width: 100%;
+        max-width: none;
+        height: 260px;
+    }
+
+    .container {
+        padding: 55px 5%;
+    }
+
+    .products {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .product-image {
+        height: 150px;
+    }
+
+    .product-info {
+        padding: 12px;
+    }
+
+    .product-info h3 {
+        font-size: 14px;
+    }
+
+    .product-bottom strong {
+        font-size: 13px;
+    }
+
+    .advantages {
+        grid-template-columns: 1fr;
+    }
+
+    footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .controls {
+        flex-direction: column;
+    }
+
+    .controls select {
+        width: 100%;
+    }
+
+    .section-heading h2 {
+        font-size: 27px;
+    }
+}
+
+@media (max-width: 380px) {
+    .products {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <a class="logo" href="#top" style="text-decoration:none">
+        Sound<span>Wave</span>
+    </a>
+
+    <nav>
+        <a href="#top">Главная</a>
+        <a href="#catalog">Каталог</a>
+        <a href="#advantages">Преимущества</a>
+    </nav>
+
+    <button class="cart-button" id="open-cart">
+        🛒 Корзина <span id="cart-count">0</span>
+    </button>
+</header>
+
+<section class="hero" id="top">
+    <div class="hero-content">
+        <small>НОВОЕ ПОКОЛЕНИЕ ЗВУКА</small>
+
+        <h1>
+            Почувствуй звук
+            <span>по-новому</span>
+        </h1>
+
+        <p>
+            Открой для себя мир качественного звука.
+            Лучшие наушники для музыки, игр и повседневной жизни.
+        </p>
+
+        <a href="#catalog" class="hero-button">
+            Смотреть каталог →
+        </a>
+    </div>
+
+    <img
+        class="hero-image"
+        src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=85"
+        alt="Наушники"
+    >
+</section>
+
+<main class="container" id="catalog">
+
+    <div class="section-heading">
+        <div>
+            <h2>Наш каталог</h2>
+            <p>Подбери идеальный звук для себя</p>
+        </div>
+    </div>
+
+    <div class="controls">
+        <input
+            id="search"
+            type="search"
+            placeholder="🔍 Поиск наушников..."
+            aria-label="Поиск товаров"
+        >
+
+        <select id="sort" aria-label="Сортировка">
+            <option value="default">Сортировка</option>
+            <option value="low">Сначала дешевле</option>
+            <option value="high">Сначала дороже</option>
+        </select>
+    </div>
+
+    <div class="categories" id="categories"></div>
+
+    <div class="products" id="products"></div>
+
+</main>
+
+<section class="advantages" id="advantages">
+    <div>
+        <span>🚚</span>
+        <h3>Быстрая доставка</h3>
+        <p>Доставляем заказы быстро и удобно.</p>
+    </div>
+
+    <div>
+        <span>🎧</span>
+        <h3>Качество звука</h3>
+        <p>Подобранные модели для музыки и игр.</p>
+    </div>
+
+    <div>
+        <span>💜</span>
+        <h3>Поддержка</h3>
+        <p>Помогаем выбрать лучшие наушники.</p>
+    </div>
+</section>
+
+<footer>
+    <div class="logo">Sound<span>Wave</span></div>
+    <p>© 2026 SoundWave. Все права защищены.</p>
+</footer>
+
+<div class="cart-overlay" id="cart-overlay" aria-hidden="true">
+    <aside class="cart" role="dialog" aria-modal="true" aria-label="Корзина">
+
+        <div class="cart-header">
+            <h2>Корзина</h2>
+            <button class="close-cart" id="close-cart">×</button>
+        </div>
+
+        <div id="cart-items"></div>
+
+        <div class="cart-total">
+            <span>Итого:</span>
+            <strong id="cart-total">0 ₸</strong>
+        </div>
+
+        <button class="checkout" id="checkout">
+            Оформить заказ
+        </button>
+
+    </aside>
+</div>
+
+<script>
+const productsData = [
+    {
+        id: 1,
+        name: "Sony WH-1000XM5",
+        category: "Беспроводные",
+        price: 159990,
+        rating: 4.9,
+        tag: "Хит",
+        image: "https://images.unsplash.com/photo-1546435770-a3e426bf472b?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 2,
+        name: "Apple AirPods Pro",
+        category: "Беспроводные",
+        price: 129990,
+        rating: 4.8,
+        tag: "Популярное",
+        image: "https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 3,
+        name: "JBL Tune 770NC",
+        category: "Накладные",
+        price: 59990,
+        rating: 4.7,
+        tag: "Новинка",
+        image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 4,
+        name: "Razer BlackShark V2",
+        category: "Игровые",
+        price: 49990,
+        rating: 4.6,
+        tag: "Gaming",
+        image: "https://images.unsplash.com/photo-1599669454699-248893623440?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 5,
+        name: "Marshall Major IV",
+        category: "Накладные",
+        price: 79990,
+        rating: 4.8,
+        tag: "",
+        image: "https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 6,
+        name: "HyperX Cloud II",
+        category: "Игровые",
+        price: 44990,
+        rating: 4.7,
+        tag: "Gaming",
+        image: "https://images.unsplash.com/photo-1612444530582-fc66183b16f7?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 7,
+        name: "Samsung Galaxy Buds",
+        category: "Беспроводные",
+        price: 69990,
+        rating: 4.5,
+        tag: "",
+        image: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+        id: 8,
+        name: "Audio-Technica M50x",
+        category: "Проводные",
+        price: 89990,
+        rating: 4.9,
+        tag: "Pro",
+        image: "https://images.unsplash.com/photo-1593078166033-9f3b5f9b4c2b?auto=format&fit=crop&w=600&q=80"
+    }
+];
+
+const categories = [
+    "Все",
+    "Беспроводные",
+    "Игровые",
+    "Накладные",
+    "Проводные"
+];
+
+let selectedCategory = "Все";
+let cart = {};
+
+const money = number =>
+    number.toLocaleString("ru-RU") + " ₸";
+
+const productsEl = document.getElementById("products");
+const categoriesEl = document.getElementById("categories");
+const cartOverlay = document.getElementById("cart-overlay");
+
+// CATEGORIES
+
+categories.forEach(category => {
+    const button = document.createElement("button");
+
+    button.className =
+        "category-button" +
+        (category === "Все" ? " active" : "");
+
+    button.textContent = category;
+    button.dataset.category = category;
+
+    button.addEventListener("click", () => {
+        selectedCategory = category;
+
+        document.querySelectorAll(".category-button")
+            .forEach(btn => {
+                btn.classList.toggle("active", btn === button);
+            });
+
+        renderProducts();
+    });
+
+    categoriesEl.appendChild(button);
+});
+
+// PRODUCTS
+
+function renderProducts() {
+    const query = document
+        .getElementById("search")
+        .value.trim()
+        .toLowerCase();
+
+    const sort = document.getElementById("sort").value;
+
+    let list = productsData.filter(product => {
+        const categoryMatch =
+            selectedCategory === "Все" ||
+            product.category === selectedCategory;
+
+        const searchMatch =
+            product.name.toLowerCase().includes(query);
+
+        return categoryMatch && searchMatch;
+    });
+
+    if (sort === "low") {
+        list.sort((a, b) => a.price - b.price);
+    }
+
+    if (sort === "high") {
+        list.sort((a, b) => b.price - a.price);
+    }
+
+    productsEl.innerHTML = "";
+
+    if (list.length === 0) {
+        productsEl.innerHTML =
+            '<div class="empty">Ничего не найдено 😔</div>';
+        return;
+    }
+
+    list.forEach(product => {
+        const card = document.createElement("article");
+
+        card.className = "product-card";
+
+        const tag = product.tag
+            ? `<span class="product-tag">${product.tag}</span>`
+            : "";
+
+        card.innerHTML = `
+            <div class="product-image">
+                ${tag}
+                <img src="${product.image}"
+                     alt="${product.name}"
+                     loading="lazy">
+            </div>
+
+            <div class="product-info">
+                <span class="product-category">
+                    ${product.category}
+                </span>
+
+                <h3>${product.name}</h3>
+
+                <div class="product-rating">
+                    ★★★★★ ${product.rating}
+                </div>
+
+                <div class="product-bottom">
+                    <strong>${money(product.price)}</strong>
+
+                    <button class="add-button"
+                            aria-label="Добавить в корзину">
+                        +
+                    </button>
+                </div>
+            </div>
+        `;
+
+        card.querySelector(".add-button")
+            .addEventListener("click", () => {
+                addToCart(product.id);
+            });
+
+        productsEl.appendChild(card);
+    });
+}
+
+// CART
+
+function addToCart(id) {
+    cart[id] = (cart[id] || 0) + 1;
+    renderCart();
+}
+
+function changeQty(id, delta) {
+    cart[id] = (cart[id] || 0) + delta;
+
+    if (cart[id] <= 0) {
+        delete cart[id];
+    }
+
+    renderCart();
+}
+
+function removeItem(id) {
+    delete cart[id];
+    renderCart();
+}
+
+function renderCart() {
+    const itemsEl = document.getElementById("cart-items");
+
+    itemsEl.innerHTML = "";
+
+    let count = 0;
+    let total = 0;
+
+    Object.entries(cart).forEach(([id, quantity]) => {
+        const product = productsData.find(
+            item => item.id === Number(id)
+        );
+
+        if (!product) return;
+
+        count += quantity;
+        total += product.price * quantity;
+
+        const row = document.createElement("div");
+
+        row.className = "cart-item";
+
+        row.innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+
+            <div class="cart-item-info">
+                <h4>${product.name}</h4>
+                <p>${money(product.price)}</p>
+
+                <div class="qty">
+                    <button class="minus">−</button>
+                    <span>${quantity}</span>
+                    <button class="plus">+</button>
+                </div>
+            </div>
+
+            <button class="remove-item">×</button>
+        `;
+
+        row.querySelector(".minus")
+            .addEventListener("click", () => {
+                changeQty(product.id, -1);
+            });
+
+        row.querySelector(".plus")
+            .addEventListener("click", () => {
+                changeQty(product.id, 1);
+            });
+
+        row.querySelector(".remove-item")
+            .addEventListener("click", () => {
+                removeItem(product.id);
+            });
+
+        itemsEl.appendChild(row);
+    });
+
+    if (count === 0) {
+        itemsEl.innerHTML =
+            '<p class="empty">Корзина пока пуста</p>';
+    }
+
+    document.getElementById("cart-count").textContent = count;
+
+    document.getElementById("cart-total").textContent =
+        money(total);
+}
+
+// CART WINDOW
+
+function openCart() {
+    cartOverlay.classList.add("open");
+    cartOverlay.setAttribute("aria-hidden", "false");
+}
+
+function closeCart() {
+    cartOverlay.classList.remove("open");
+    cartOverlay.setAttribute("aria-hidden", "true");
+}
+
+document.getElementById("open-cart")
+    .addEventListener("click", openCart);
+
+document.getElementById("close-cart")
+    .addEventListener("click", closeCart);
+
+cartOverlay.addEventListener("click", event => {
+    if (event.target === cartOverlay) {
+        closeCart();
+    }
+});
+
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape") {
+        closeCart();
+    }
+});
+
+// SEARCH AND SORT
+
+document.getElementById("search")
+    .addEventListener("input", renderProducts);
+
+document.getElementById("sort")
+    .addEventListener("change", renderProducts);
+
+// CHECKOUT
+
+document.getElementById("checkout")
+    .addEventListener("click", () => {
+        if (Object.keys(cart).length === 0) {
+            alert("Сначала добавьте товары в корзину!");
+            return;
+        }
+
+        alert(
+            "Демонстрационный заказ на сумму " +
+            document.getElementById("cart-total").textContent +
+            ". Для реального оформления нужен сервер."
+        );
+    });
+
+// INITIALIZE
+
+renderProducts();
+renderCart();
+</script>
+
+</body>
+</html>
